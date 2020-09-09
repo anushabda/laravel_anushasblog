@@ -1,0 +1,52 @@
+div #skills {
+    animation-name: moving;
+    position: relative;
+    animation-duration: 3s;
+    animation-iteration-count: infinite;
+    animation-direction: alternate;
+}
+
+@keyframes moving {
+    from {
+        left: 0px;
+        top: 0px
+    }
+
+    to {
+        left: 10px;
+        top: 20px
+    }
+}
+
+.bgroad {
+    /* The image used */
+    background-image: linear-gradient(rgba(1, 0, 0, 0.6), rgba(1, 0, 0, 0.6)), url('/user/images/road.jpg');
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bg {
+    /* The image used */
+    background-image: linear-gradient(rgba(1, 0, 0, 0.6), rgba(1, 0, 0, 0.6)), url('/user/images/relaxbg.jpg');
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.bgcontact {
+    /* The image used */
+    background-image: linear-gradient(rgba(51, 0, 0, 0.9), rgba(255, 160, 122, 0.5)), url('/user/images/contact-bg.jpg');
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
