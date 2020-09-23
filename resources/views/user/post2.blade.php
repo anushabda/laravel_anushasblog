@@ -51,13 +51,71 @@
 </hr>
       <hr>
 
-      
+      <!-- Comments Form -->
+      <div class="card my-4">
+        <h5 class="card-header">Leave a Comment:</h5>
+        <div class="card-body">
+          <form action="{{route('comment.store',$post->id)}}" method="post">
+            {{ csrf_field() }}
+            <div class="form-group">
+              <textarea class="form-control" rows="3" name="comment"></textarea>
+            </div>
+            @guest
+            <a class="btn btn-primary"href="{{route('login')}}">Submit</a>
+            @else
+            <button type="submit" class="btn btn-primary">Submit</button>
+            @endguest
+          </form>
+        </div>
+      </div>
+
+      <!-- Single Comment -->
+        @foreach($post->comments->sortByDesc('created_at') as $comment)
+      <div class="media mb-4">
+        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+        <div class="media-body">
+          <h5 class="mt-0">
+
+            {{ $comment->user->name }}
+         </h5>
+          {{ $comment->comment }}
+        </div>
+      </div>
+      @endforeach
+
+      <!-- Comment with nested comments -->
+      <div class="media mb-4">
+        <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+        <div class="media-body">
+          <h5 class="mt-0">Commenter Name</h5>
+          Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+
+          <div class="media mt-4">
+            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+            <div class="media-body">
+              <h5 class="mt-0">Commenter Name</h5>
+              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+            </div>
+          </div>
+
+          <div class="media mt-4">
+            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+            <div class="media-body">
+              <h5 class="mt-0">Commenter Name</h5>
+              Cras sit amet nibh libero, in gravida nulla. Nulla vel metus scelerisque ante sollicitudin. Cras purus odio, vestibulum in vulputate at, tempus viverra turpis. Fusce condimentum nunc ac nisi vulputate fringilla. Donec lacinia congue felis in faucibus.
+            </div>
+          </div>
+
+        </div>
+      </div>
+
     </div>
 
     <!-- Sidebar Widgets Column -->
     <div class="col-md-4">
 
-     
+      <!-- Search Widget -->
+
       <!-- Categories Widget -->
       <div class="card my-4">
         <div class="card-body">
@@ -92,8 +150,8 @@
   <div class="card my-4">
     <h5 class="card-header">Leave a Comment:</h5>
     <div class="card-body">
-      <form id="commentForm">
-       
+      <form action="{{route('comment.store',$post->id)}}" method="post">
+        {{ csrf_field() }}
         <div class="form-group">
           <textarea class="form-control" rows="3" name="comment"></textarea>
         </div>
@@ -105,14 +163,61 @@
       </form>
     </div>
   </div>
-<!--New comment-->
-<div id="newcomment">
+
+  <!-- Single Comment -->
+
+@if(count($post->comments)!=0)
+    @foreach($post->comments->sortByDesc('created_at') as $comment)
+
+    <div class="media mb-4">
+      <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+        <div class="media-body">
+          <h5 class="mt-0">
+            {{ $comment->user->name }}
+          </h5>
+          {{ $comment->comment }}
+        <div>
+
+          <button id="{{$comment->id}}" type="button">Replies </button>
+<div id="{{'replysection_'.$comment->id}}" style="display:none">
+          <form id="{{'replyform'.$comment->id}}" class="repform">
+
+            <input type="hidden" name="post_id" value="{{$post->id}}" />
+            <input type="hidden" name="comment_id" value="{{$comment->id}}" />
+
+              <textarea class="form-control" rows="3" id="replytext" name="replytext"></textarea>
+
+            <button id="replysubmit" class="replysubmit" type="submit">Submit</button>
+          </form>
+      <!-- replies for comment -->
+          @if(count($post->replies)!=0)
+          @foreach($post->replies->where('comment_id','=',$comment->id) as $reply)
+
+<div class="media mb-4">
+          <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+<div class="media-body" >
+            <h5 class="mt-0">
+
+              {{ $reply->user->name }}
+           </h5>
+            {{ $reply->replytext }}
 </div>
-<div id="loadmore">
-  <button id="loadmorebtn">load more</button>
 </div>
- 
+
+          @endforeach
+@endif
+
+</div><!--end of reply section-->
+
+  </div>
 </div>
+</div>
+  @endforeach
+@endif
+
+    
+
+    </div>
 
   </div>
   <!-- /.row -->
@@ -123,104 +228,25 @@
                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8="
                crossorigin="anonymous">
 </script>
-<script src="/js/commentsection.js"></script>
 <script>
 jQuery(document).ready(function(){
- 
- 
-  //Load first 5 comments initially from pagination->5
-  var nextpageurl="";
-  commentUpdate(nextpageurl);  
 
-  function commentUpdate(nextpageurl){
-      var post_id="{{$post->id}}";
+  //Toggling comments for reply
+  $('*').click(function(){
+    var ids=$(this).attr('id');
+    $('#replysection_'+ids).toggle();
   
-      var newcomment = document.querySelector('#newcomment') ;
-      if(nextpageurl==''){
-        newcomment.innerHTML = "";
-        var url = " {{ route('comment.index',$post->id)}}";
-      }
-      else
-        var url =nextpageurl;
-
-    jQuery.ajax({
-      url: url,
-      success:function(result){
-            
-          $('#commentForm').trigger('reset');
-          var details = result.comments.data;
-          var mincomments = result.comments.data.length;
-          for( let i= 0 ;i<mincomments;i++){
-             newcomment.innerHTML += cloneComment(i,`template${i}`,details[i],post_id);       
-          }
-          //set the global variable nexturl
-          nexturl= result.comments.next_page_url;
-          
-          //----------------------Toggling the Reply Section---------------------------
-          replyToggler();
-
-            //-------------------Submitting the Reply---------------------------------
-            $('.replysubmit').click(function(e){
-                  e.preventDefault();
-                  var replyurl="{{route('comment.reply')}}";
-                  var frmID = $(this).closest('form').attr('id');
-                            var form_data =$("#"+frmID).serialize();
-                  replySubmitter(replyurl,frmID,form_data);                   
-            });
-       }
     });
-  }//end function commentUpdate
-  //setInterval(commentUpdate,10000);
-
-//Load Morecomments section
-  $('#loadmorebtn').on('click',function(){
-    if(nexturl!= null){
-      commentUpdate(nexturl);
-        }
-        else
-        {
-        alert('No more comments');
-         }
-  });  
-        
-    //Submit the comment
-  $('#commentForm').on('submit',function(e){
-        e.preventDefault();
-        var form_data = $('#commentForm').serialize();
-       
-        jQuery.ajaxSetup({
-            headers:{
-          'X-CSRF-TOKEN': $('meta[name="token"]').attr('content')
-            },
-          });
-        jQuery.ajax({
-                  
-                url: " {{ route('comment.store',$post->id)}}",
-                method: 'post',
-                enctype: 'form-data',
-                data:
-                {
-                // "token":"{{csrf_token()}}",
-                form_data:form_data,
-
-                },
-                success: function(result){
-                    console.log(result);
-                    commentUpdate('');
-                          }
-              });
-
-             });
 //Submit the reply
 $(".repform button").on('click',function(e){
   
     e.preventDefault();
   
    var frmID = $(this).closest('form').attr('id');
-   console.log(frmID);
- 
+   
+  
  var form_data =$("#"+frmID).serialize();
- console.log(form_data);
+  
 
   jQuery.ajaxSetup({
     headers:{
@@ -238,35 +264,12 @@ $(".repform button").on('click',function(e){
 
     },
      success: function(result){
-          console.log(result);
+         // console.log(result.success);
           alert(result.success);
-          //commentUpdate();
-               },
-     error:function(xhr,status,error){
-                 var statusCode = xhr.status;
-                 var errors = JSON.parse(xhr.responseText);
-                 
-                 switch(statusCode){
-                   case 400:
-                   {
-                   var errormsgs= errors.errormsgs.replytext;
-                    alert(errormsgs);
-                    
-                   break;
-                   }
-                   case 401:
-                   {
-                   alert(errors.errormsgs);
-                   break;
-                   }
-                 }
-                
-                 //alert(xhr.responseText);
-                 
                },
            });
 });
-//Like buttons
+
        jQuery('#likeform button').click(function(e){
           e.preventDefault();
           jQuery.ajaxSetup({

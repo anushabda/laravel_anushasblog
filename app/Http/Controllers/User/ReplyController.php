@@ -32,13 +32,19 @@ class ReplyController extends Controller
             'replytext'=>'required'
           ];
             $messages=[
-            'replytext'=>'No comments given',
+            'replytext.required'=>'OOPS No comments',
+           
           ];
 
           $validator = Validator::make($input, $rules, $messages);
    
             if ($validator->fails()) {
-                return response()->json(['success'=>'No comments typed']);
+               // return response()->json(['success'=>'No comments typed']);
+               return response()->json(array(
+                'success'=>false,
+                'errormsgs'=> $validator->getMessageBag()->toArray()
+              ),400);
+
             }
           
             $user =Auth::user();
@@ -51,8 +57,15 @@ class ReplyController extends Controller
             $reply->comment()->associate($comment);
 
             $reply->save();
-            return response()->json(['success'=>'Your reply is saved']);
+            //return response()->json(['success'=>'Your reply is saved']);
+            return response()->json(['reply'=>$reply->replytext,'username'=>$reply->user->name]);
             
+        }
+        else{
+        return response()->json(array(
+          'success'=>false,
+          'errormsgs'=>'Please login to reply'
+        ),401);
         }
       
     }

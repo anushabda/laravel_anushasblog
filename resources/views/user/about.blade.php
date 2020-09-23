@@ -44,7 +44,7 @@
         <div class="row d-flex justify-content-center">
           <div class="col-md-8">
             <div class="row jumbotron" style="background-color:Bisque;color:#330000">
-            Enthusiastic Web Developer fascinated by programming. Seeking to use proven skills in teamwork, leadership and coding. Automised the Result Analysis Report for students' semester results in Excel. Guided students in programming to develop their Image Watermarking project using Matlab.  </div>
+            Enthusiastic Web Developer fascinated by programming. </div>
             </div>
 <div class="row">
 
@@ -197,6 +197,7 @@
 
       <button class="btn btn-link" style="color:LightSalmon" data-toggle="collapse" data-target="#role2">Class Coordinator</button>
       <div id="role2" class="collapse">
+        
           	Class In-charge for one class of 66 students every Semester
       </div>  <br>
 
