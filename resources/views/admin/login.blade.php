@@ -18,52 +18,49 @@
   <!-- Google Font: Source Sans Pro -->
   <link href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700" rel="stylesheet">
 </head>
-<body class="hold-transition login-page">
-  @if (count($errors)>0)
-  @foreach ($errors->all() as $error)
-  <div>  {{ $error }}</div>
-  @endforeach
-  @endif
+<body class="hold-transition login-page" style="background-color:LightSalmon;font-color:Red">  
+ 
 
 <div class="login-box">
-  <div class="login-logo">
-    <a href="../../index2.html"><b>Admin</b>Anusha's Blog</a>
+  <div class="login-logo "  >
+    <a href="{{route('home')}}" ><img src="{{asset('/images/anushasbloglogo.png')}}" class="rounded-circle" style="background-color:#330000;width:30px;height:30px" alt="logo" /></a>
+   <span style="color:#330000"><b>Anusha's Blog</b></span>
   </div>
   <!-- /.login-logo -->
   <div class="card">
     <div class="card-body login-card-body">
-      <p class="login-box-msg">Sign in to start your session</p>
+      <h3 class="login-box-msg text-danger font-italic">Admin Login</h3>
 
       <form action="{{route('admin.login')}}" method="post">
         {{csrf_field() }}
-        <div class="input-group mb-3">
-          <input type="email" class="form-control" name="email" placeholder="Email">
+        <div class="input-group mb-3 border border-dark rounded" >
+          <input type="email"  class="form-control" name="email" placeholder="Email">
           <div class="input-group-append">
-            <div class="input-group-text">
+            <div class="input-group-text text-danger">
               <span class="fas fa-envelope"></span>
             </div>
           </div>
         </div>
-        <div class="input-group mb-3">
+        <div class="input-group mb-3 border border-dark rounded">
           <input type="password" class="form-control" name="password" placeholder="Password">
           <div class="input-group-append">
-            <div class="input-group-text">
+            <div class="input-group-text text-danger">
               <span class="fas fa-lock"></span>
             </div>
           </div>
         </div>
         <div class="row">
           <div class="col-8">
-            <div class="icheck-primary">
-              <input type="checkbox" id="remember">
-              <label for="remember">
+            <div class="icheck-danger" style="border-color:red">
+              <input type="checkbox"  id="remember">
+              <label for="remember"  class="text-danger">
                 Remember Me
               </label>
             </div>
           </div>
           <!-- /.col -->
           <div class="col-4">
-            <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+            <button type="submit" style="background-color:#330000"class="btn btn-danger btn-block">Sign In</button>
           </div>
           <!-- /.col -->
         </div>
@@ -73,6 +70,11 @@
     </div>
     <!-- /.login-card-body -->
   </div>
+  @if (count($errors)>0)
+  @foreach ($errors->all() as $error)
+  <div class="text-secondary">  {{ $error }}</div>
+  @endforeach
+  @endif
 </div>
 <!-- /.login-box -->
 

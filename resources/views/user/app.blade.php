@@ -6,7 +6,7 @@
 
 </head>
 
-<body>
+<body style="background-color:LightSalmon">
   <!-- Navigation -->
   @include('user/layouts/header')
 
@@ -14,6 +14,7 @@
 
 @section('main-content')
 @show
+
   <!-- Footer -->
 
   @include('user/layouts/footer')

@@ -12,10 +12,14 @@
             <span class="sr-only">(current)</span>
           </a>
         </li>
+        <!--
         <li class="nav-item " id="link-about">
           <a class="nav-link " href="{{route('about')}}">About</a>
         </li>
-
+        -->
+        <li class="nav-item " id="link-about">
+          <a class="nav-link " href="{{route('admin.login')}}">Admin</a>
+        </li>
         <li class="nav-item" id="link-contact">
           <a class="nav-link "href="{{route('contact')}}">Contact</a>
         </li>
