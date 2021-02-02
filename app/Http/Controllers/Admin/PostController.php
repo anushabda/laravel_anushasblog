@@ -132,7 +132,10 @@ dd($po->first()->title);
             $post->status=0;
         }
         if ($request->hasFile('imageFile')) {
+           
+           
             $image=$request->file('imageFile');
+          
             $filename=time().'.'.$image->getClientOriginalExtension();
             $location=public_path('images/'.$filename);
             Image::make($image)->save($location);

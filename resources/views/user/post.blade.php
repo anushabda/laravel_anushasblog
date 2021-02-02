@@ -35,9 +35,9 @@
 
       <!-- Preview Image
       <img class="img-fluid rounded" src="http://placehold.it/900x300" alt=""> -->
-      <img class="img-fluid rounded" src="{{ asset('images/'.$post->image)  }}" width="100%" height="auto" alt="">
+      <!-- <img class="img-fluid rounded" src="{{ asset('images/'.$post->image)  }}" width="100%" height="auto" alt=""> -->
 
-      <hr>
+      
 
       <!-- Post Content -->
       {!! htmlspecialchars_decode($post->body) !!}
@@ -59,7 +59,7 @@
 
      
       <!-- Categories Widget -->
-      <div class="card my-4">
+      <div class="card my-4" style="background-color:LightSalmon">
         <div class="card-body">
 
       <form id="likeform" >
@@ -89,8 +89,8 @@
 
 
   <!-- Comments Form -->
-  <div class="card my-4">
-    <h5 class="card-header">Leave a Comment:</h5>
+  <div class="card my-4" style="background-color:LightSalmon">
+    <h5 class="card-header" >Leave a Comment:</h5>
     <div class="card-body">
       <form id="commentForm">
        
@@ -217,10 +217,10 @@ $(".repform button").on('click',function(e){
     e.preventDefault();
   
    var frmID = $(this).closest('form').attr('id');
-   console.log(frmID);
+  // console.log(frmID);
  
  var form_data =$("#"+frmID).serialize();
- console.log(form_data);
+ //console.log(form_data);
 
   jQuery.ajaxSetup({
     headers:{
@@ -238,7 +238,7 @@ $(".repform button").on('click',function(e){
 
     },
      success: function(result){
-          console.log(result);
+          //console.log(result);
           alert(result.success);
           //commentUpdate();
                },

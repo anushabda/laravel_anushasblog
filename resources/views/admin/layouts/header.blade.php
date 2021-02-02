@@ -5,11 +5,9 @@
       <a class="nav-link text-danger" data-widget="pushmenu" href="#"><i class="fas fa-bars"></i></a>
     </li>
     <li class="nav-item d-none d-sm-inline-block">
-      <a href="index3.html" class="nav-link text-danger">Home</a>
+      <a href="{{route('home')}}" class="nav-link text-danger">Home</a>
     </li>
-    <li class="nav-item d-none d-sm-inline-block">
-      <a href="#" class="nav-link text-danger">Contact</a>
-    </li>
+   
     <li class="nav-item dropdown">
         <a id="navbarDropdown" class="nav-link text-danger dropdown-toggle" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre>
             {{ Auth::user()->name }} <span class="caret"></span>

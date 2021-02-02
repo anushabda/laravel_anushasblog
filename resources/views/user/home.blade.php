@@ -33,10 +33,10 @@
 
     @section('main-content')
 
-<div class="container">
+<div class="container" >
 
 
-  <div class="row">
+  <div class="row" >
 
     <!-- Blog Entries Column -->
     <div class="col-md-8">
@@ -56,14 +56,14 @@
       <!-- Blog Post -->
 
       @foreach($posts as $post)
-        <div class="card  flex-row flex-wrap">
+        <div class="card  flex-row flex-wrap" style="background-color:LightSalmon">
           <div class="card-header border-0">
             <img  src=" {{ asset('images/'.$post->image) }} " alt="Card image cap" height="100" width="150" />
           </div>
           <div class="card-block px-2">
-            <h3 class="card-title" style="color:LightSalmon;">{{$post->title}}</h3>
+            <h3 class="card-title" style="color:#330000;">{{$post->title}}</h3>
             <p class="card-text "style="color:#330000;">{!!strip_tags(\Illuminate\Support\Str::words(htmlspecialchars_decode($post->body),70,"..."),'<br>')!!}</p>
-            <a style="color:#330000;" href="{{route('post',$post->slug)}}">Read More&rarr;</a>
+            <a style="color:green;" href="{{route('post',$post->slug)}}">Go to Post &rarr;</a>
   </div>
 
           <div class="card-footer">
@@ -74,6 +74,7 @@
 
 
     </div>
+    <br>
         @endforeach
 
 
@@ -81,15 +82,15 @@
       <!-- Pagination -->
 
       <div class="pagination justify-content-center mb-4">
-        {{$posts->links()}}
+        <span >{{$posts->links()}}</span>
       </div>
 
     </div>
 
     <!-- Sidebar Widgets Column -->
     <div class="col-md-4">
-<div class="card card-my-4 mt-4">
-  <h5 class="card-header">Search</h5>
+<div class="card card-my-4 mt-4" style="background-color:LightSalmon">
+  <h5 class="card-header" style="color:#330000" >Search</h5>
   <div class="card-body">
 
   <form action="{{route('search')}}" method="post">
@@ -116,15 +117,15 @@
 
 
       <!-- Categories Widget -->
-      <div class="card my-4">
-        <h5 class="card-header">Categories</h5>
+      <div class="card my-4" style="background-color:LightSalmon">
+        <h5 class="card-header" style="color:#330000">Categories</h5>
         <div class="card-body">
           <div class="row">
             <div class="col-lg-6">
               <ul class="list-unstyled mb-0">
                 @foreach ($categories->take(ceil(count($categories)/2)) as $category)
                 <li>
-                  <a href="{{route('category',$category->slug)}}">{{$category->name}}</a>
+                  <a class="btn btn-default " href="{{route('category',$category->slug)}}">{{$category->name}}</a>
                 </li>
                 @endforeach
               </ul>
@@ -133,7 +134,7 @@
               <ul class="list-unstyled mb-0">
                 @foreach ($categories->slice(ceil(count($categories)/2)) as $category)
                 <li>
-                  <a href="{{route('category',$category->slug)}}">{{$category->name}}</a>
+                  <a class="btn btn-default" href="{{route('category',$category->slug)}}">{{$category->name}}</a>
                 </li>
                 @endforeach
               </ul>
@@ -142,15 +143,15 @@
         </div>
       </div>
       <!-- Tags Widget -->
-      <div class="card my-4">
-        <h5 class="card-header">Tags</h5>
+      <div class="card my-4" style="background-color:LightSalmon">
+        <h5 class="card-header" style="color:#330000">Tags</h5>
         <div class="card-body">
           <div class="row">
             <div class="col-lg-6">
               <ul class="list-unstyled mb-0">
                 @foreach ($tags->take(ceil(count($tags)/2)) as $tag)
                 <li>
-                  <a href="{{route('tag',$tag->slug)}}">{{$tag->name}}</a>
+                  <a class="btn btn-default" href="{{route('tag',$tag->slug)}}">{{$tag->name}}</a>
                 </li>
                 @endforeach
               </ul>
@@ -159,7 +160,7 @@
               <ul class="list-unstyled mb-0">
                 @foreach ($tags->slice(ceil(count($tags)/2)) as $tag)
                 <li>
-                  <a href="{{route('tag',$tag->slug)}}">{{$tag->name}}</a>
+                  <a class="btn btn-default" href="{{route('tag',$tag->slug)}}">{{$tag->name}}</a>
                 </li>
                 @endforeach
               </ul>

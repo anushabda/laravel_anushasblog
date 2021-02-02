@@ -5,7 +5,8 @@
         if(replieslength!=0){
         for(var i=replieslength-1;i>=0;i--){
              replystring+=`<div class="media mb-4">
-                            <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                       <img class="d-flex mr-3 rounded-circle" src="http://placehold.it/50x50" alt="">
+                       
                             <div class="media-body" >
                                 <h5 class="mt-0">
                                ${ detail.replies[i].username}
