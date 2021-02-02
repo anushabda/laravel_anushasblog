@@ -62,9 +62,8 @@
           </div>
           <div class="card-block px-2">
             <h3 class="card-title" style="color:#330000;">{{$post->title}}</h3>
-            <!-- <p class="card-text "style="color:#330000;">{!!strip_tags(\Illuminate\Support\Str::words(htmlspecialchars_decode($post->body),70,"..."),'<br>')!!}</p> -->
-            <!-- <p class="card-text "style="color:#330000;"><?php //echo strip_tags(implode(' ',array_slice(explode(' ',htmlspecialchars_decode($post->body)),0,70)),'<br>'); ?></p> -->
-            <p class="card-text "style="color:#330000;"> <?php echo strip_tags(implode(' ',array_slice(explode(' ',$post->body),0,70)),'<br>'); ?></p>
+            <p class="card-text "style="color:#330000;">{!!strip_tags(\Illuminate\Support\Str::words(htmlspecialchars_decode($post->body),70,"..."),'<br>')!!}</p> 
+           
             
             <a style="color:green;" href="{{route('post',$post->slug)}}">Go to Post &rarr;</a>
   </div>
