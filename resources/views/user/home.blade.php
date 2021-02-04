@@ -57,11 +57,16 @@
 
       @foreach($posts as $post)
         <div class="card  flex-row flex-wrap" style="background-color:LightSalmon">
-          <div class="card-header border-0">
+        
+         
+        
+<!--          <div class="card-header border-0">
             <img  src=" {{ asset('images/'.$post->image) }} " alt="Card image cap" height="100" width="150" />
           </div>
-          <div class="card-block px-2">
-            <h3 class="card-title" style="color:#330000;">{{$post->title}}</h3>
+          -->
+          <div class="card-block px-2 pt-1">
+          
+            <h3 class="card-title" style="color:#330000;"><span class="border  pt-0 pl-1 pr-1  border-danger rounded-circle  font-italic small" style="background-color:#330000;color:LightSalmon"> {{ substr($post->title,0,1)}}</span>&nbsp;{{$post->title}}</h3>
             <p class="card-text "style="color:#330000;">{!!strip_tags(\Illuminate\Support\Str::words(htmlspecialchars_decode($post->body),70,"..."),'<br>')!!}</p> 
            
             
